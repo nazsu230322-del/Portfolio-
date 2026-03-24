@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Md Nazrul Islam — Barista & Bartender</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --espresso:   #1C1008;
+    --dark-roast: #241408;
+    --roast:      #2E1A0C;
+    --gold:       #C8963E;
+    --gold-light: #E8B86D;
+    --gold-pale:  #F5DFA8;
+    --cream:      #F5EDD8;
+    --warm-white: #FAF6F0;
+    --mid:        #7A6A5A;
+    --light-mid:  #B8A898;
+    --text:       #2A1A0E;
+    --text-light: #5A4A3A;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Jost', sans-serif;
+    background: var(--espresso);
+    color: var(--cream);
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 0 48px;
+    height: 64px;
+    background: rgba(28,16,8,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(200,150,62,0.2);
+  }
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem; letter-spacing: 2px;
+    color: var(--gold);
+  }
+  .nav-links { display: flex; gap: 32px; list-style: none; }
+  .nav-links a {
+    color: var(--light-mid); text-decoration: none;
+    font-size: 0.78rem; letter-spacing: 1.5px; text-transform: uppercase;
+    font-weight: 500;
+    transition: color 0.3s;
+  }
+  .nav-links a:hover { color: var(--gold); }
+
+  /* ── HERO ── */
+  #hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column;
+    justify-content: center; align-items: center;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    padding: 80px 24px 60px;
+  }
+
+  .hero-bg {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 50% 60%, rgba(200,150,62,0.07) 0%, transparent 70%),
+      radial-gradient(ellipse 50% 50% at 20% 20%, rgba(200,150,62,0.04) 0%, transparent 60%),
+      linear-gradient(180deg, #1C1008 0%, #241408 50%, #1A0E06 100%);
+  }
+
+  .hero-grain {
+    position: absolute; inset: 0; opacity: 0.035;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+    background-size: 200px;
+  }
+
+  .hero-ring {
+    position: absolute;
+    border-radius: 50%;
+    border: 1px solid rgba(200,150,62,0.1);
+  }
+  .ring-1 { width: 500px; height: 500px; top: 50%; left: 50%; transform: translate(-50%,-50%); }
+  .ring-2 { width: 700px; height: 700px; top: 50%; left: 50%; transform: translate(-50%,-50%); border-color: rgba(200,150,62,0.06); }
+  .ring-3 { width: 900px; height: 900px; top: 50%; left: 50%; transform: translate(-50%,-50%); border-color: rgba(200,150,62,0.04); }
+
+  .hero-content { position: relative; z-index: 2; }
+
+  .hero-eyebrow {
+    font-size: 0.72rem; letter-spacing: 4px; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 20px;
+    opacity: 0; animation: fadeUp 0.8s 0.2s forwards;
+  }
+
+  .hero-name {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3rem, 8vw, 6rem);
+    font-weight: 900; line-height: 1.05;
+    color: var(--cream);
+    opacity: 0; animation: fadeUp 0.9s 0.4s forwards;
+  }
+  .hero-name span { color: var(--gold); }
+
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1rem, 2.5vw, 1.5rem);
+    font-style: italic; font-weight: 400;
+    color: var(--gold-light);
+    margin-top: 12px; margin-bottom: 24px;
+    opacity: 0; animation: fadeUp 0.9s 0.6s forwards;
+  }
+
+  .hero-divider {
+    width: 60px; height: 1px;
+    background: var(--gold);
+    margin: 0 auto 24px;
+    opacity: 0; animation: fadeUp 0.9s 0.7s forwards;
+  }
+
+  .hero-tags {
+    display: flex; flex-wrap: wrap; gap: 10px; justify-content: center;
+    margin-bottom: 36px;
+    opacity: 0; animation: fadeUp 0.9s 0.8s forwards;
+  }
+  .hero-tag {
+    padding: 6px 18px;
+    border: 1px solid rgba(200,150,62,0.35);
+    border-radius: 2px;
+    font-size: 0.72rem; letter-spacing: 1.5px; text-transform: uppercase;
+    color: var(--light-mid);
+    background: rgba(200,150,62,0.04);
+  }
+
+  .hero-cta {
+    display: inline-flex; gap: 14px; flex-wrap: wrap; justify-content: center;
+    opacity: 0; animation: fadeUp 0.9s 1s forwards;
+  }
+  .btn {
+    padding: 13px 32px;
+    font-family: 'Jost', sans-serif;
+    font-size: 0.78rem; letter-spacing: 2px; text-transform: uppercase;
+    font-weight: 600; text-decoration: none;
+    transition: all 0.3s; cursor: pointer; border: none;
+  }
+  .btn-gold {
+    background: var(--gold); color: var(--espresso);
+  }
+  .btn-gold:hover { background: var(--gold-light); transform: translateY(-2px); }
+  .btn-outline {
+    background: transparent; color: var(--gold);
+    border: 1px solid var(--gold);
+  }
+  .btn-outline:hover { background: rgba(200,150,62,0.1); transform: translateY(-2px); }
+
+  .hero-stats {
+    display: flex; gap: 48px; justify-content: center;
+    margin-top: 60px; padding-top: 40px;
+    border-top: 1px solid rgba(200,150,62,0.15);
+    opacity: 0; animation: fadeUp 0.9s 1.1s forwards;
+  }
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.4rem; font-weight: 700;
+    color: var(--gold); line-height: 1;
+  }
+  .stat-label {
+    font-size: 0.68rem; letter-spacing: 1.5px; text-transform: uppercase;
+    color: var(--mid); margin-top: 6px;
+  }
+
+  /* ── SECTIONS ── */
+  section {
+    padding: 90px 0;
+  }
+  .container {
+    max-width: 1000px; margin: 0 auto; padding: 0 40px;
+  }
+
+  .section-label {
+    font-size: 0.68rem; letter-spacing: 4px; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 10px;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    font-weight: 700; color: var(--cream);
+    line-height: 1.2; margin-bottom: 16px;
+  }
+  .section-rule {
+    width: 48px; height: 2px;
+    background: var(--gold); margin-bottom: 40px;
+  }
+
+  /* ── ABOUT ── */
+  #about { background: var(--dark-roast); }
+  .about-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start;
+  }
+  .about-text p {
+    font-size: 0.95rem; line-height: 1.85;
+    color: var(--light-mid); margin-bottom: 18px;
+  }
+  .about-text p strong { color: var(--cream); }
+  .about-quote {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.25rem; font-style: italic;
+    color: var(--gold-light); line-height: 1.6;
+    border-left: 2px solid var(--gold);
+    padding-left: 20px; margin: 28px 0;
+  }
+  .info-list { display: flex; flex-direction: column; gap: 0; }
+  .info-item {
+    display: flex; padding: 13px 0;
+    border-bottom: 1px solid rgba(200,150,62,0.12);
+  }
+  .info-key {
+    width: 110px; flex-shrink: 0;
+    font-size: 0.72rem; letter-spacing: 1px; text-transform: uppercase;
+    color: var(--gold); font-weight: 600;
+  }
+  .info-val {
+    font-size: 0.88rem; color: var(--light-mid);
+  }
+  .info-val a { color: var(--gold-light); text-decoration: none; }
+  .info-val a:hover { color: var(--gold); }
+
+  /* ── SKILLS ── */
+  #skills { background: var(--espresso); }
+  .skills-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+  }
+  .skill-card {
+    background: rgba(200,150,62,0.04);
+    border: 1px solid rgba(200,150,62,0.15);
+    padding: 28px 24px;
+    transition: border-color 0.3s, background 0.3s;
+  }
+  .skill-card:hover {
+    border-color: rgba(200,150,62,0.4);
+    background: rgba(200,150,62,0.07);
+  }
+  .skill-card-title {
+    font-size: 0.68rem; letter-spacing: 2.5px; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 18px; padding-bottom: 12px;
+    border-bottom: 1px solid rgba(200,150,62,0.2);
+  }
+  .skill-list { list-style: none; }
+  .skill-list li {
+    font-size: 0.85rem; color: var(--light-mid);
+    padding: 5px 0; display: flex; align-items: center; gap: 8px;
+    line-height: 1.4;
+  }
+  .skill-list li::before {
+    content: '◆'; color: var(--gold); font-size: 0.45rem; flex-shrink: 0;
+  }
+
+  /* ── EXPERIENCE ── */
+  #experience { background: var(--dark-roast); }
+  .timeline { position: relative; padding-left: 28px; }
+  .timeline::before {
+    content: ''; position: absolute;
+    left: 0; top: 8px; bottom: 0;
+    width: 1px; background: rgba(200,150,62,0.2);
+  }
+  .timeline-item {
+    position: relative; margin-bottom: 48px;
+    opacity: 0; transform: translateX(-20px);
+    transition: opacity 0.6s, transform 0.6s;
+  }
+  .timeline-item.visible { opacity: 1; transform: translateX(0); }
+  .timeline-dot {
+    position: absolute; left: -34px; top: 4px;
+    width: 12px; height: 12px; border-radius: 50%;
+    background: var(--gold);
+    border: 2px solid var(--dark-roast);
+    box-shadow: 0 0 0 3px rgba(200,150,62,0.2);
+  }
+  .job-header { margin-bottom: 8px; }
+  .job-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem; font-weight: 700;
+    color: var(--cream);
+  }
+  .job-company { color: var(--gold); font-size: 0.88rem; font-weight: 600; margin-top: 2px; }
+  .job-meta {
+    font-size: 0.78rem; color: var(--mid);
+    margin-top: 2px; margin-bottom: 14px;
+    font-style: italic;
+  }
+  .job-bullets { list-style: none; }
+  .job-bullets li {
+    font-size: 0.88rem; color: var(--light-mid);
+    padding: 4px 0 4px 16px; position: relative;
+    line-height: 1.65;
+  }
+  .job-bullets li::before {
+    content: '◆'; position: absolute; left: 0; top: 5px;
+    color: var(--gold); font-size: 0.4rem;
+  }
+  .job-bullets li strong { color: var(--cream); }
+
+  /* ── CERTIFICATIONS ── */
+  #certifications { background: var(--espresso); }
+  .cert-grid {
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px;
+  }
+  .cert-card {
+    background: rgba(200,150,62,0.04);
+    border: 1px solid rgba(200,150,62,0.15);
+    border-left: 3px solid var(--gold);
+    padding: 20px 22px;
+    transition: background 0.3s;
+  }
+  .cert-card:hover { background: rgba(200,150,62,0.08); }
+  .cert-name {
+    font-size: 0.92rem; font-weight: 600;
+    color: var(--cream); margin-bottom: 6px;
+  }
+  .cert-issuer { font-size: 0.78rem; color: var(--gold); margin-bottom: 4px; }
+  .cert-date { font-size: 0.75rem; color: var(--mid); font-style: italic; }
+
+  /* ── CONTACT ── */
+  #contact {
+    background: var(--roast);
+    text-align: center;
+  }
+  .contact-grid {
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px;
+    max-width: 560px; margin: 0 auto 40px;
+  }
+  .contact-card {
+    background: rgba(200,150,62,0.05);
+    border: 1px solid rgba(200,150,62,0.15);
+    padding: 20px; text-align: left;
+  }
+  .contact-label {
+    font-size: 0.65rem; letter-spacing: 2px; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 6px;
+  }
+  .contact-value {
+    font-size: 0.88rem; color: var(--light-mid);
+  }
+  .contact-value a { color: var(--gold-light); text-decoration: none; }
+  .contact-value a:hover { color: var(--gold); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--espresso);
+    border-top: 1px solid rgba(200,150,62,0.15);
+    padding: 28px 40px;
+    text-align: center;
+    font-size: 0.78rem; color: var(--mid);
+    letter-spacing: 0.5px;
+  }
+  footer span { color: var(--gold); }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    nav { padding: 0 20px; }
+    .nav-links { gap: 16px; }
+    .nav-links a { font-size: 0.68rem; }
+    .about-grid { grid-template-columns: 1fr; gap: 36px; }
+    .skills-grid { grid-template-columns: 1fr; }
+    .cert-grid { grid-template-columns: 1fr; }
+    .contact-grid { grid-template-columns: 1fr; }
+    .hero-stats { gap: 28px; }
+    .container { padding: 0 20px; }
+    .timeline { padding-left: 20px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<nav>
+  <div class="nav-logo">MNI</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#certifications">Certifications</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- ── HERO ── -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grain"></div>
+  <div class="hero-ring ring-1"></div>
+  <div class="hero-ring ring-2"></div>
+  <div class="hero-ring ring-3"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">Career Portfolio</p>
+    <h1 class="hero-name">Md Nazrul <span>Islam</span></h1>
+    <p class="hero-title">Barista &amp; Bartender</p>
+    <div class="hero-divider"></div>
+    <div class="hero-tags">
+      <span class="hero-tag">Specialty Coffee</span>
+      <span class="hero-tag">Cocktails &amp; Mocktails</span>
+      <span class="hero-tag">Latte Art</span>
+      <span class="hero-tag">Team Training</span>
+      <span class="hero-tag">KSA &amp; Qatar</span>
+    </div>
+    <div class="hero-cta">
+      <a href="#contact" class="btn btn-gold">Get In Touch</a>
+      <a href="#experience" class="btn btn-outline">View Experience</a>
+    </div>
+    <div class="hero-stats">
+      <div>
+        <div class="stat-num">9+</div>
+        <div class="stat-label">Years Experience</div>
+      </div>
+      <div>
+        <div class="stat-num">3</div>
+        <div class="stat-label">Premium Brands</div>
+      </div>
+      <div>
+        <div class="stat-num">2</div>
+        <div class="stat-label">Countries</div>
+      </div>
+      <div>
+        <div class="stat-num">3</div>
+        <div class="stat-label">Languages</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── ABOUT ── -->
+<section id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-text">
+        <p class="section-label">About Me</p>
+        <h2 class="section-title">Crafting Experiences, One Cup at a Time</h2>
+        <div class="section-rule"></div>
+        <p>I am a passionate <strong>Barista and Bartender</strong> with over <strong>9 years</strong> of experience delivering exceptional beverage experiences in high-volume venues across the Kingdom of Saudi Arabia and Qatar.</p>
+        <p>My journey has taken me from busy café floors in Doha to premium specialty coffee bars in Riyadh and Tabuk, working with world-class brands including <strong>SEVEN (Saudi Entertainment Ventures)</strong>, <strong>Café Kitsuné</strong>, and <strong>The Coffee Club</strong>.</p>
+        <div class="about-quote">"Every cup tells a story — I make sure it's a great one."</div>
+        <p>Fluent in <strong>English, Arabic, and Bangla</strong>, I bring a multicultural perspective to every interaction, connecting with diverse guests and colleagues across the hospitality industry.</p>
+      </div>
+      <div>
+        <div class="info-list">
+          <div class="info-item">
+            <span class="info-key">Role</span>
+            <span class="info-val">Barista &amp; Bartender</span>
+          </div>
+          <div class="info-item">
+            <span class="info-key">Based In</span>
+            <span class="info-val">Tabuk, Saudi Arabia</span>
+          </div>
+          <div class="info-item">
+            <span class="info-key">Experience</span>
+            <span class="info-val">9+ Years</span>
+          </div>
+          <div class="info-item">
+            <span class="info-key">Nationality</span>
+            <span class="info-val">Bangladeshi</span>
+          </div>
+          <div class="info-item">
+            <span class="info-key">Languages</span>
+            <span class="info-val">English · Arabic · Bangla</span>
+          </div>
+          <div class="info-item">
+            <span class="info-key">Email</span>
+            <span class="info-val"><a href="mailto:nazsu230322@gmail.com">nazsu230322@gmail.com</a></span>
+          </div>
+          <div class="info-item">
+            <span class="info-key">Phone</span>
+            <span class="info-val">0562832936</span>
+          </div>
+          <div class="info-item">
+            <span class="info-key">LinkedIn</span>
+            <span class="info-val"><a href="https://linkedin.com/in/md-nazrul-islam-1136b7207" target="_blank">md-nazrul-islam-1136b7207</a></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── SKILLS ── -->
+<section id="skills">
+  <div class="container">
+    <p class="section-label">Expertise</p>
+    <h2 class="section-title">Core Skills</h2>
+    <div class="section-rule"></div>
+    <div class="skills-grid">
+      <div class="skill-card">
+        <div class="skill-card-title">☕ Coffee Craft</div>
+        <ul class="skill-list">
+          <li>Espresso Extraction &amp; Calibration</li>
+          <li>Latte Art — Rosettas &amp; Tulips</li>
+          <li>Milk Steaming &amp; Texturing</li>
+          <li>Pour-Over / V60 / AeroPress</li>
+          <li>Cold Brew Preparation</li>
+          <li>Grinder Calibration</li>
+          <li>Brew Ratio Management</li>
+          <li>Coffee Bean &amp; Origin Knowledge</li>
+        </ul>
+      </div>
+      <div class="skill-card">
+        <div class="skill-card-title">🍹 Bar &amp; Cocktails</div>
+        <ul class="skill-list">
+          <li>Cocktail &amp; Mocktail Preparation</li>
+          <li>Bartending &amp; Mixology</li>
+          <li>Spirits &amp; Flavour Pairing</li>
+          <li>Signature Drink Creation</li>
+          <li>Menu Development</li>
+          <li>Beverage Presentation</li>
+          <li>Bar Setup &amp; Breakdown</li>
+          <li>Strategic Upselling</li>
+        </ul>
+      </div>
+      <div class="skill-card">
+        <div class="skill-card-title">⚙️ Operations</div>
+        <ul class="skill-list">
+          <li>Barista &amp; Bar Staff Training</li>
+          <li>Peak-Hour Order Management</li>
+          <li>POS Systems Operation</li>
+          <li>Inventory &amp; Stock Control</li>
+          <li>Allergen Awareness</li>
+          <li>QHSES Compliance</li>
+          <li>Health &amp; Safety Standards</li>
+          <li>Customer Service Excellence</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── EXPERIENCE ── -->
+<section id="experience">
+  <div class="container">
+    <p class="section-label">Work History</p>
+    <h2 class="section-title">Professional Experience</h2>
+    <div class="section-rule"></div>
+    <div class="timeline">
+
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="job-header">
+          <div class="job-title">Barista &amp; Bartender</div>
+          <div class="job-company">Saudi Entertainment Ventures (SEVEN)</div>
+          <div class="job-meta">Tabuk, KSA &nbsp;·&nbsp; Dec 2025 — Present &nbsp;·&nbsp; High-volume luxury entertainment venue</div>
+        </div>
+        <ul class="job-bullets">
+          <li>Operate and calibrate commercial espresso machines, serving <strong>100+ guests per shift</strong> with consistent brew quality.</li>
+          <li>Prepare specialty coffee, tea, cocktails, and mocktails including espresso drinks, pour-overs, cold brew, and mixed drinks.</li>
+          <li>Create cocktail and mocktail menus, applying spirits knowledge and flavour pairing to craft signature drinks.</li>
+          <li>Train and coach a bar team of <strong>5 staff</strong>, achieving a <strong>25% improvement</strong> in beverage consistency and guest service scores.</li>
+          <li>Achieved a <strong>30% increase</strong> in positive guest satisfaction feedback within 3 months through proactive complaint resolution.</li>
+          <li>Contributed to a <strong>15–20% increase</strong> in average transaction value through strategic beverage upselling.</li>
+          <li>Oversee allergen awareness and QHSES compliance, maintaining a <strong>zero-incident record</strong>.</li>
+        </ul>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="job-header">
+          <div class="job-title">Barista</div>
+          <div class="job-company">Café Kitsuné (Eastern Yields)</div>
+          <div class="job-meta">Riyadh, KSA &nbsp;·&nbsp; Jun 2024 — Dec 2025 &nbsp;·&nbsp; Premium international specialty coffee brand</div>
+        </div>
+        <ul class="job-bullets">
+          <li>Prepared <strong>150+ high-quality</strong> espresso drinks, pour-overs, and cold brew beverages daily in a luxury café environment.</li>
+          <li>Managed POS system processing <strong>200+ transactions per day</strong> during peak hours with swift, accurate service.</li>
+          <li>Trained <strong>4 new baristas</strong> on grinder calibration, brew ratios, and milk texturing, reducing onboarding time by <strong>30%</strong>.</li>
+          <li>Maintained full cleanliness, inventory, and stock control in adherence to health, safety, and allergen regulations.</li>
+        </ul>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="job-header">
+          <div class="job-title">Barista</div>
+          <div class="job-company">The Coffee Club (Liwa Minor Food &amp; Beverages LLC)</div>
+          <div class="job-meta">Riyadh, KSA &nbsp;·&nbsp; Feb 2020 — May 2024 &nbsp;·&nbsp; International café chain — 4-year tenure</div>
+        </div>
+        <ul class="job-bullets">
+          <li>Crafted <strong>100+ espresso-based</strong> and specialty drinks per shift, consistently meeting brand quality standards over 4 years.</li>
+          <li>Reduced wastage by approximately <strong>20%</strong> through accurate inventory ordering and stock rotation.</li>
+          <li>Trained <strong>6+ team members</strong> on espresso extraction, milk texturing, latte art, and customer service best practices.</li>
+          <li>Maintained full food safety and allergen compliance across <strong>4 years with zero reported violations</strong>.</li>
+        </ul>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="job-header">
+          <div class="job-title">Waiter</div>
+          <div class="job-company">The Coffee Club (Liwa Minor Food &amp; Beverages LLC)</div>
+          <div class="job-meta">Doha, Qatar &nbsp;·&nbsp; Oct 2018 — Aug 2019</div>
+        </div>
+        <ul class="job-bullets">
+          <li>Delivered food and beverage orders promptly, consistently achieving positive guest satisfaction feedback.</li>
+          <li>Assisted guests with menu selections and allergen queries, coordinating with kitchen and bar staff for efficient service.</li>
+        </ul>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="job-header">
+          <div class="job-title">Waiter</div>
+          <div class="job-company">Fly Café &amp; Restaurant</div>
+          <div class="job-meta">Doha, Qatar &nbsp;·&nbsp; Sept 2016 — Sept 2018</div>
+        </div>
+        <ul class="job-bullets">
+          <li>Managed guest orders and delivered food and beverages promptly in a busy café-restaurant.</li>
+          <li>Coordinated with kitchen staff to ensure timely, efficient meal delivery and high guest satisfaction.</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── CERTIFICATIONS ── -->
+<section id="certifications">
+  <div class="container">
+    <p class="section-label">Training &amp; Credentials</p>
+    <h2 class="section-title">Certifications</h2>
+    <div class="section-rule"></div>
+    <div class="cert-grid">
+      <div class="cert-card">
+        <div class="cert-name">Safeguarding &amp; Child Protection</div>
+        <div class="cert-issuer">SEVEN / Saudi Entertainment Ventures</div>
+        <div class="cert-date">16 Dec 2025 — 02 Mar 2026</div>
+      </div>
+      <div class="cert-card">
+        <div class="cert-name">Fire Safety</div>
+        <div class="cert-issuer">SEVEN / Saudi Entertainment Ventures</div>
+        <div class="cert-date">16 Dec 2025 — 02 Mar 2026</div>
+      </div>
+      <div class="cert-card">
+        <div class="cert-name">First Aid &amp; CPR</div>
+        <div class="cert-issuer">SEVEN / Saudi Entertainment Ventures</div>
+        <div class="cert-date">16 Dec 2025 — 02 Mar 2026</div>
+      </div>
+      <div class="cert-card">
+        <div class="cert-name">Food Safety</div>
+        <div class="cert-issuer">SEVEN / Saudi Entertainment Ventures</div>
+        <div class="cert-date">16 Dec 2025 — 02 Mar 2026</div>
+      </div>
+      <div class="cert-card">
+        <div class="cert-name">QHSES Compliance</div>
+        <div class="cert-issuer">SEVEN / Saudi Entertainment Ventures</div>
+        <div class="cert-date">16 Dec 2025 — 02 Mar 2026</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CONTACT ── -->
+<section id="contact">
+  <div class="container">
+    <p class="section-label">Get In Touch</p>
+    <h2 class="section-title">Contact Me</h2>
+    <div class="section-rule" style="margin: 0 auto 40px;"></div>
+    <div class="contact-grid">
+      <div class="contact-card">
+        <div class="contact-label">Email</div>
+        <div class="contact-value"><a href="mailto:nazsu230322@gmail.com">nazsu230322@gmail.com</a></div>
+      </div>
+      <div class="contact-card">
+        <div class="contact-label">Phone</div>
+        <div class="contact-value">0562832936</div>
+      </div>
+      <div class="contact-card">
+        <div class="contact-label">Location</div>
+        <div class="contact-value">Tabuk, Saudi Arabia</div>
+      </div>
+      <div class="contact-card">
+        <div class="contact-label">LinkedIn</div>
+        <div class="contact-value"><a href="https://linkedin.com/in/md-nazrul-islam-1136b7207" target="_blank">View Profile →</a></div>
+      </div>
+    </div>
+    <div>
+      <a href="mailto:nazsu230322@gmail.com" class="btn btn-gold">Send Me an Email</a>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <p>© 2026 <span>Md Nazrul Islam</span> — Barista &amp; Bartender &nbsp;·&nbsp; Tabuk, Saudi Arabia</p>
+  <p style="margin-top:6px; font-size:0.7rem;">References available upon request</p>
+</footer>
+
+<script>
+  // Scroll animation for timeline items
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 120);
+      }
+    });
+  }, { threshold: 0.15 });
+
+  document.querySelectorAll('.timeline-item').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
